@@ -18,25 +18,24 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'Customer',
   computed: {
-    totalTvCount () {
-      return this.$store.state.totalTvCount
-    },
-    happyStaff () {
-      // Check in the getter if the staff is happy
-      return this.$store.getters.happyStaff
-    }
+    // If you have only one state/getter object spread operators are not necessarily needed
+    // But we'll use it for now, so you can see how they are used
+    // mapState/mapGetter accepts an array of strings as parameter
+    ...mapState(['totalTvCount']),
+    ...mapGetters(['happyStaff'])
   },
   methods: {
+    ...mapActions(['removeTv']),
     buyTv() {
-      // Dispatch the action to buy a TV
-      this.$store.dispatch('removeTv', 1)
+      this.removeTv(1) // Remove 1 TV
     },
     buyTwoTvs() {
-      // Dispatch the action to buy two TVs
-      this.$store.dispatch('removeTv', 2)
+      this.removeTv(2) // Remove 2 TVs
     }
   }
 }
