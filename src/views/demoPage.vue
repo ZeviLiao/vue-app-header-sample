@@ -1,15 +1,18 @@
 <template>
-    <div>
-        你好，hello
-    </div>
+  <div class="customer">
+    <h1>I'm a customer</h1>
+    <p>I see {{ totalTvCount }} TVs!</p>
+  </div>
 </template>
 
 <script>
-    export default {
-        
-    }
+import { mapState } from "vuex";
+export default {
+  computed: {
+    ...mapState(['totalTvCount'])
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-
 </style>
