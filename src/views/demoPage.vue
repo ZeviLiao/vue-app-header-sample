@@ -2,6 +2,7 @@
   <div class="customer">
     <h1>I'm a customer</h1>
     <p>I see {{ totalTvCount }} TVs!</p>
+    <!-- <p>happyStaff: {{happyStaff}}</p> -->
     <p v-show="happyStaff">The staff seems happy!</p>
     <p v-show="!totalTvCount">I can't buy any..</p>
     <button 

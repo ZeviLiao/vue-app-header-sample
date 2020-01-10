@@ -21,6 +21,7 @@ export default new Vuex.Store({
     // Jenny
     removeTv(state, amount) {
       state.totalTvCount -= amount
+      // state.isLarryHappy = false
     }
   },
 
