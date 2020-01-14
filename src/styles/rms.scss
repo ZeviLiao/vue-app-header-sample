@@ -1,46 +1,46 @@
 .conn--1 {
-    color: lightgray;
+  color: lightgray;
 }
 
 .conn-0 {
-    color: gray;
+  color: gray;
 }
 
 .conn-1 {
-    color: #00e0da;
+  color: #00e0da;
 }
 
 .spacing {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
-$owner:#00b5e2;
-$admin:#333333;
-$member-av:#008eb2;
-$member-tag:#bbbbc1;
+$owner: #00b5e2;
+$admin: #333333;
+$member-av: #008eb2;
+$member-tag: #bbbbc1;
 
 .el-tag.owner {
-    background-color: rgba(0, 181, 226, 0.1);
-    color: $owner;
-    border: 1px solid rgba(0, 181, 226, 0.2);
+  background-color: rgba(0, 181, 226, 0.1);
+  color: $owner;
+  border: 1px solid rgba(0, 181, 226, 0.2);
 }
 .el-tag.admin {
-    background-color: rgba(51, 51, 51, 0.1);
-    color: $admin;
-    border: 1px solid rgba(51, 51, 51, 0.2);
+  background-color: rgba(51, 51, 51, 0.1);
+  color: $admin;
+  border: 1px solid rgba(51, 51, 51, 0.2);
 }
-.el-tag.member {
-    background-color: rgba(187, 187, 193, 0.1);
-    color: $member-tag;
-    border: 1px solid rgba(187, 187, 193, 0.2);
+.el-tag.member .el-tag.others {
+  background-color: rgba(187, 187, 193, 0.1);
+  color: $member-tag;
+  border: 1px solid rgba(187, 187, 193, 0.2);
 }
 
-.user-avatar.owner{
-    background: $owner;
+.user-avatar.owner {
+  background: $owner;
 }
-.user-avatar.admin{
-    background: $admin;
+.user-avatar.admin {
+  background: $admin;
 }
-.user-avatar.member{
-    background: $member-av;
+.user-avatar.member .user-avatar.others {
+  background: $member-av;
 }
