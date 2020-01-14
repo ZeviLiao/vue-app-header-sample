@@ -62,7 +62,8 @@ export default {
       this.lineChartData = lineChartData[type]
     },
     udpateRole(roleName) {
-      alert(roleName)
+      // alert(roleName)
+      this.$root.$emit('roleChanged', roleName.toLowerCase())
     }
   }
 }

@@ -161,6 +161,8 @@ export default {
   'common.role.admin': '管理者',
   'common.role.member': '操作員',
   'common.role.owner': '擁有者',
+  'common.role.user': '一般使用者',
+  'common.role.student': '學生',
   'common.save': '儲存',
   'common.schedule': '已排定解安裝任務',
   'common.selectfile': '選擇檔案',
