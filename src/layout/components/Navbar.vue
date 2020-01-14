@@ -154,6 +154,8 @@ export default {
     height: 60px;
     overflow: hidden;
 
+    border-bottom: 1px solid #eee;
+
     .hamburger-container {
         line-height: 56px;
         height: 100%;

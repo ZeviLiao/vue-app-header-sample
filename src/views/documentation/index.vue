@@ -1,19 +1,14 @@
 <template>
   <div class="app-container documentation-container">
-    <a class="document-btn" target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/">Documentation</a>
-    <a class="document-btn" target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">Github Repository</a>
-    <a class="document-btn" target="_blank" href="https://panjiachen.gitee.io/vue-element-admin-site/zh/">国内文档</a>
-    <dropdown-menu class="document-btn" :items="articleList" title="系列文章" />
-    <a class="document-btn" target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/zh/job/">内推招聘</a>
+    User Info
   </div>
 </template>
 
 <script>
-import DropdownMenu from '@/components/Share/DropdownMenu'
 
 export default {
   name: 'Documentation',
-  components: { DropdownMenu },
+  components: { },
   data() {
     return {
       articleList: [
@@ -35,9 +30,9 @@ export default {
 <style lang="scss" scoped>
 .documentation-container {
   margin: 50px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  // display: flex;
+  // flex-wrap: wrap;
+  // justify-content: space-evenly;
 
   .document-btn {
     flex-shrink: 0;
