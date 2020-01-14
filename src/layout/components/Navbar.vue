@@ -9,7 +9,7 @@
     <!-- <div class="breadcrumb-container">Version: {{version}}</div> -->
     <!-- <breadcrumb class="breadcrumb-container"/> -->
     <div class="right-menu">
-      <team-select class="right-menu-item" />
+      <!-- <team-select class="right-menu-item" /> -->
       <lang-select class="right-menu-item hover-effect" />
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">

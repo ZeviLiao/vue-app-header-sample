@@ -1,5 +1,6 @@
 #app {
 
+  // 主体区域 Main container
   .main-container {
     min-height: 100%;
     transition: margin-left .28s;
@@ -7,10 +8,11 @@
     position: relative;
   }
 
+  // 侧边栏 Sidebar container
   .sidebar-container {
+    background-color: white;
     transition: width 0.28s;
     width: $sideBarWidth !important;
-    background-color: $menuBg;
     height: 100%;
     position: fixed;
     font-size: 0px;
@@ -21,27 +23,21 @@
     overflow: hidden;
     border-right: 1px solid #eee;
 
-    // reset element-ui css
+    //reset element-ui css
     .horizontal-collapse-transition {
       transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
     }
 
     .scrollbar-wrapper {
       overflow-x: hidden !important;
+
+      .el-scrollbar__view {
+        height: 100%;
+      }
     }
 
     .el-scrollbar__bar.is-vertical {
       right: 0px;
-    }
-
-    .el-scrollbar {
-      height: 100%;
-    }
-
-    &.has-logo {
-      .el-scrollbar {
-        height: calc(100% - 50px);
-      }
     }
 
     .is-horizontal {
@@ -89,23 +85,19 @@
 
   .hideSidebar {
     .sidebar-container {
-      width: 54px !important;
+      width: $sideBarWidth !important;
     }
 
     .main-container {
-      margin-left: 54px;
+      margin-left: $sideBarWidth;
     }
 
     .submenu-title-noDropdown {
-      padding: 0 !important;
+      // padding-left: 10px !important;
       position: relative;
 
       .el-tooltip {
-        padding: 0 !important;
-
-        .svg-icon {
-          margin-left: 20px;
-        }
+        padding: 0 10px !important;
       }
     }
 
@@ -113,11 +105,7 @@
       overflow: hidden;
 
       &>.el-submenu__title {
-        padding: 0 !important;
-
-        .svg-icon {
-          margin-left: 20px;
-        }
+        padding-left: 10px !important;
 
         .el-submenu__icon-arrow {
           display: none;
@@ -144,7 +132,7 @@
     min-width: $sideBarWidth !important;
   }
 
-  // mobile responsive
+  // 适配移动端, Mobile responsive
   .mobile {
     .main-container {
       margin-left: 0px;
