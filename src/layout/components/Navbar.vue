@@ -1,51 +1,59 @@
 <template>
   <div class="navbar">
-    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
-
+    <hamburger
+      v-if="this.device === 'mobile'"
+      :toggle-click="toggleSideBar"
+      :is-active="sidebar.opened"
+      class="hamburger-container"
+    />
+    <!-- <div class="breadcrumb-container">Version: {{version}}</div> -->
+    <!-- <breadcrumb class="breadcrumb-container"/> -->
     <div class="right-menu">
-      <template v-if="device!=='mobile'">
-        <search id="header-search" class="right-menu-item" />
-
-        <error-log class="errLog-container right-menu-item hover-effect" />
-
-        <screenfull id="screenfull" class="right-menu-item hover-effect" />
-
-        <el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom">
-          <size-select id="size-select" class="right-menu-item hover-effect" />
-        </el-tooltip>
-
-        <lang-select class="right-menu-item hover-effect" />
-
-      </template>
-
-      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
+      <team-select class="right-menu-item" />
+      <lang-select class="right-menu-item hover-effect" />
+      <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          <div class="user-avatar-outer" :class="accountPage?'active':''">
+            <div class="user-avatar" :class="roles[0]">{{ avatarName }}</div>
+          </div>
         </div>
-        <el-dropdown-menu slot="dropdown">
-          <router-link to="/profile/index">
+        <el-dropdown-menu slot="dropdown" style="width:150px">
+          <router-link to="/accountCenter">
             <el-dropdown-item>
-              {{ $t('navbar.profile') }}
+              {{ this.name }}
+              <br>
+              <el-tag :class="roles[0]">{{ $t('common.role.' + roles[0]) }}</el-tag>
             </el-dropdown-item>
           </router-link>
-          <router-link to="/">
-            <el-dropdown-item>
-              {{ $t('navbar.dashboard') }}
-            </el-dropdown-item>
+          <el-dropdown-item divided />
+          <router-link to="/accountCenter">
+            <el-dropdown-item>{{ $t('common.acc') }}</el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">
-            <el-dropdown-item>
-              {{ $t('navbar.github') }}
-            </el-dropdown-item>
-          </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
-          <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">{{ $t('navbar.logOut') }}</span>
+          <router-link
+            v-if="allowOwnerOp"
+            to="/valueadd"
+            :disabled="!whateverActivatesThisLink"
+            :event="whateverActivatesThisLink ? 'click' : ''"
+            :style="whateverActivatesThisLink ? 'cursor: default' : 'cursor: not-allowed'"
+          >
+            <el-dropdown-item
+              :disabled="!whateverActivatesThisLink"
+            >{{ $t('common.valueAdd') }}</el-dropdown-item>
+          </router-link>
+          <router-link
+            v-if="allowOwnerOp"
+            to="/billingcenter"
+            :disabled="!whateverActivatesThisLink"
+            :event="whateverActivatesThisLink ? 'click' : ''"
+            :style="whateverActivatesThisLink ? 'cursor: default' : 'cursor: not-allowed'"
+          >
+            <el-dropdown-item
+              :disabled="!whateverActivatesThisLink"
+            >{{ $t('route.billingcenter') }}</el-dropdown-item>
+          </router-link>
+          <el-dropdown-item divided />
+          <el-dropdown-item>
+            <div @click="handleLogout">{{ $t('common.logout') }}</div>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -55,123 +63,207 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
+// import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-import ErrorLog from '@/components/ErrorLog'
-import Screenfull from '@/components/Screenfull'
-import SizeSelect from '@/components/SizeSelect'
 import LangSelect from '@/components/LangSelect'
-import Search from '@/components/HeaderSearch'
+// import TeamSelect from './TeamSelect'
+import store from '@/store'
+import ResizeMixin from '../mixin/ResizeHandler'
+// import { version } from '@/../package.json'
 
 export default {
   components: {
-    Breadcrumb,
+    // Breadcrumb,
     Hamburger,
-    ErrorLog,
-    Screenfull,
-    SizeSelect,
-    LangSelect,
-    Search
+    LangSelect
+  },
+  mixins: [ResizeMixin],
+  data() {
+    return {
+      // version
+      whateverActivatesThisLink: false
+    }
+  },
+  created() {
+    this.$root.$on('updateUserInfo', () => {
+      store.dispatch('GetUserInfo')
+    })
   },
   computed: {
-    ...mapGetters([
-      'sidebar',
-      'avatar',
-      'device'
-    ])
+    ...mapGetters(['sidebar', 'name', 'avatar', 'device', 'roles']),
+    accountPage() {
+      return this.$route.path === '/accountCenter'
+    },
+    allowOp() {
+      return this.roles[0] !== 'member'
+    },
+    allowOwnerOp() {
+      return this.roles[0] === 'owner'
+    },
+    avatarName() {
+      let showName = this.name
+      const names = this.name.split(' ')
+      if (names.length > 1) {
+        const first = names[0]
+        const last = names[1]
+        const english = /^[A-Za-z0-9]*$/
+        let charA, charB
+        if (english.test(first)) {
+          charA = first.charAt(0).toUpperCase()
+          charB = last.charAt(0).toUpperCase()
+        } else {
+          charA = first
+          charB = ''
+        }
+        showName = charA + charB
+      }
+      return showName
+    }
   },
   methods: {
     toggleSideBar() {
-      this.$store.dispatch('app/toggleSideBar')
+      this.$store.dispatch('toggleSideBar')
     },
-    async logout() {
-      await this.$store.dispatch('user/logout')
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    // logout () {
+    //     this.$store.dispatch('LogOut').then(() => {
+    //         location.reload() // In order to re-instantiate the vue-router object to avoid bugs
+    //     })
+    // },
+    handleLogout() {
+      this.$confirm(this.$t('personCenter.confirm.logout.text'), '', {
+        confirmButtonText: this.$t('common.logout'),
+        cancelButtonText: this.$t('common.cancel')
+      })
+        .then(_ => {
+          this.$store.dispatch('LogOut').then(() => {
+            location.reload() // In order to re-instantiate the vue-router object to avoid bugs
+          })
+        })
+        .catch(_ => {})
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style rel="stylesheet/scss" lang="scss" scoped>
+@import 'src/styles/rms.scss';
+// .navbar .right-menu .avatar-container .avatar-wrapper {
+//     margin-top: 0 !important;
+// }
 .navbar {
-  height: 50px;
-  overflow: hidden;
-  position: relative;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+    height: 60px;
+    overflow: hidden;
 
-  .hamburger-container {
-    line-height: 46px;
-    height: 100%;
-    float: left;
-    cursor: pointer;
-    transition: background .3s;
-    -webkit-tap-highlight-color:transparent;
-
-    &:hover {
-      background: rgba(0, 0, 0, .025)
-    }
-  }
-
-  .breadcrumb-container {
-    float: left;
-  }
-
-  .errLog-container {
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  .right-menu {
-    float: right;
-    height: 100%;
-    line-height: 50px;
-
-    &:focus {
-      outline: none;
-    }
-
-    .right-menu-item {
-      display: inline-block;
-      padding: 0 8px;
-      height: 100%;
-      font-size: 18px;
-      color: #5a5e66;
-      vertical-align: text-bottom;
-
-      &.hover-effect {
+    .hamburger-container {
+        line-height: 56px;
+        height: 100%;
+        float: left;
         cursor: pointer;
-        transition: background .3s;
+        transition: background 0.3s;
 
         &:hover {
-          background: rgba(0, 0, 0, .025)
+            background: rgba(0, 0, 0, 0.025);
         }
-      }
     }
 
-    .avatar-container {
-      margin-right: 30px;
-
-      .avatar-wrapper {
-        margin-top: 5px;
-        position: relative;
-
-        .user-avatar {
-          cursor: pointer;
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-        }
-
-        .el-icon-caret-bottom {
-          cursor: pointer;
-          position: absolute;
-          right: -20px;
-          top: 25px;
-          font-size: 12px;
-        }
-      }
+    .breadcrumb-container {
+        float: left;
+        line-height: 60px;
+        margin-left: 15px;
+        color: #555;
     }
-  }
+
+    .errLog-container {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .right-menu {
+        float: right;
+        height: 100%;
+        line-height: 60px;
+
+        .active {
+            // border-bottom: 3px solid #00b5e2;
+            background: rgba(0, 0, 0, 0.1) !important;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        .right-menu-item {
+            display: inline-block;
+            padding: 0 8px;
+            height: 100%;
+            font-size: 14px;
+            color: #5a5e66;
+            vertical-align: text-bottom;
+
+            &.hover-effect {
+                cursor: pointer;
+                transition: background 0.3s;
+
+                &:hover {
+                    background: rgba(0, 0, 0, 0.025);
+                }
+            }
+        }
+
+        .avatar-container {
+            margin-right: 30px;
+
+            .avatar-wrapper {
+                // margin-top: 10px;
+                // position: relative;
+
+                .user-avatar-outer {
+                    position: relative;
+                    top: 5px;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    background: transparent;
+                    pointer-events: none;
+                    &:hover {
+                        transition: background 0.2s ease-in;
+                        background: rgba(0, 0, 0, 0.1);
+                    }
+                    transition: background 0.2s ease-out;
+                    .user-avatar {
+                        font-size: 18px;
+                        position: relative;
+                        top: 5px;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        // background: #00b5e2;
+                        text-align: center;
+                        color: white;
+                        font-weight: bold;
+                        line-height: 40px;
+                        left: 5px;
+                        cursor: pointer;
+                        pointer-events: auto;
+                    }
+                }
+
+                .el-icon-caret-bottom {
+                    cursor: pointer;
+                    position: absolute;
+                    right: -20px;
+                    top: 25px;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+</style>
+<style lang="scss">
+.router-link-exact-active.router-link-active {
+    li {
+        color: #00b5e2;
+    }
 }
 </style>

@@ -1,82 +1,103 @@
 <template>
-  <div class="sidebar-logo-container" :class="{'collapse':collapse}">
-    <transition name="sidebarLogoFade">
-      <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo">
-        <h1 v-else class="sidebar-title">{{ title }} </h1>
-      </router-link>
-      <router-link v-else key="expand" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo">
-        <h1 class="sidebar-title">{{ title }} </h1>
-      </router-link>
-    </transition>
+  <div class="logo">
+    <!-- <transition name="fade">
+      <span v-if="isCollapse" class="logo_title is-bold " key="0" :class="{'is-text':!type,'is-img':type}">
+        <template v-if="type">
+          <img :src="website.logo" height="50" />
+        </template>
+        <template v-else>
+          {{website.logo}}
+        </template>
+      </span>
+        </transition>-->
+    <transition-group name="fade">
+      <template>
+        <span key="1" class="logo_title">
+          <img :src="('/static/images/nuwa.svg')" width="78">
+          <span class="logo-text">機器人管理</span>
+        </span>
+        <!-- <span class="logo_subtitle" key="2">{{website.author}}</span> -->
+      </template>
+    </transition-group>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'SidebarLogo',
-  props: {
-    collapse: {
-      type: Boolean,
-      required: true
+  name: 'Logo',
+  props: ['isCollapse'],
+  data() {
+    return {}
+  },
+  created() {},
+  computed: {
+    ...mapGetters(['website']),
+    type: function(val) {
+      return this.website.logo.indexOf('static') !== -1
     }
   },
-  data() {
-    return {
-      title: 'Vue Element Admin',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
-    }
-  }
+  methods: {}
 }
 </script>
 
-<style lang="scss" scoped>
-.sidebarLogoFade-enter-active {
-  transition: opacity 1.5s;
+<style scoped="scoped" lang="scss">
+.fade-leave-active {
+    transition: opacity 0.2s;
 }
-
-.sidebarLogoFade-enter,
-.sidebarLogoFade-leave-to {
-  opacity: 0;
+.fade-enter-active {
+    transition: opacity 2.5s;
 }
-
-.sidebar-logo-container {
-  position: relative;
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  background: #2b2f3a;
-  text-align: center;
-  overflow: hidden;
-
-  & .sidebar-logo-link {
-    height: 100%;
-    width: 100%;
-
-    & .sidebar-logo {
-      width: 32px;
-      height: 32px;
-      vertical-align: middle;
-      margin-right: 12px;
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+.logo {
+    margin-top: 25px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // width: 230px;
+    height: 50px;
+    // line-height: 64px;
+    background: white;
+    color: #fdfdfd;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.logo_title {
+    // padding: 0 5px 0 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: normal;
+    &.is-bold {
+        font-weight: 700;
     }
-
-    & .sidebar-title {
-      display: inline-block;
-      margin: 0;
-      color: #fff;
-      font-weight: 600;
-      line-height: 50px;
-      font-size: 14px;
-      font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
-      vertical-align: middle;
+    img {
+        vertical-align: middle;
     }
-  }
-
-  &.collapse {
-    .sidebar-logo {
-      margin-right: 0px;
-    }
-  }
+}
+.logo-text {
+    position: relative;
+    top: 2px;
+    margin-left: 3px;
+}
+.is-text {
+    position: absolute;
+    top: 0;
+    // left: 20px;
+}
+.is-img {
+    position: absolute;
+    // top: 10px;
+    // left: 10px;
+}
+.logo_subtitle {
+    font-size: 16px;
+    padding-top: 5px;
 }
 </style>
