@@ -1,6 +1,11 @@
 <template>
   <div class="dashboard-editor-container">
-    Home
+    <h3>Avatars / Roles</h3>
+    <el-button @click="udpateRole('Owner')">Owner</el-button>
+    <el-button @click="udpateRole('Admin')">Admin</el-button>
+    <el-button @click="udpateRole('Member')">Member</el-button>
+    <el-button @click="udpateRole('User')">User</el-button>
+    <el-button @click="udpateRole('Student')">Student</el-button>
   </div>
 </template>
 
@@ -55,6 +60,9 @@ export default {
   methods: {
     handleSetLineChartData(type) {
       this.lineChartData = lineChartData[type]
+    },
+    udpateRole(roleName) {
+      alert(roleName)
     }
   }
 }
@@ -80,7 +88,7 @@ export default {
   }
 }
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
   .chart-wrapper {
     padding: 8px;
   }
