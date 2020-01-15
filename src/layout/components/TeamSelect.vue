@@ -4,7 +4,12 @@
   </div>
   <el-dropdown v-else trigger="click" @command="handleCommand">
     <span class="el-dropdown-link">
-      <svg-icon icon-class="group" class="icon" /> {{ teamName }}
+      <svg-icon icon-class="group" class="icon" />
+
+      <div style="display:inline-block;min-width:100px;text-align:right">
+        {{ teamName }}
+      </div>
+
       <i class="el-icon-arrow-down el-icon--right" />
     </span>
     <el-dropdown-menu slot="dropdown">
