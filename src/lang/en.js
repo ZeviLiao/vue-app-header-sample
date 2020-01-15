@@ -198,6 +198,7 @@ export default {
   'common.wechatpay': 'WeChat pay',
   'sidebar.feedback': 'Feedback and Suggestion',
   'sidebar.helper': 'Help Center',
+  'team.apply': 'Create a Team',
   'Nsso.Btn.Ok': 'Ok',
   'Nsso.Btn.Cancel': 'Cancel',
   'Nsso.Btn.Send': 'Send ',

@@ -186,6 +186,7 @@ export default {
   'common.wechatpay': '微信支付',
   'sidebar.feedback': '回饋建議',
   'sidebar.helper': '幫助中心',
+  'team.apply': '申請團隊',
   'Nsso.Btn.Ok': '好的',
   'Nsso.Btn.Cancel': '取消',
   'Nsso.Btn.Send': '送出',

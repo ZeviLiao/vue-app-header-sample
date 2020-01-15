@@ -4,7 +4,7 @@
   </div>
   <el-dropdown v-else trigger="click" @command="handleCommand">
     <span class="el-dropdown-link">
-      {{ teamId }}
+      <svg-icon icon-class="group" class="icon" /> {{ teamName }}
       <i class="el-icon-arrow-down el-icon--right" />
     </span>
     <el-dropdown-menu slot="dropdown">
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       team: {
-        name: ''
+        name: '努哇教育集團'
       },
       teamId: 'NB1557903870927',
       teams: []
@@ -50,17 +50,17 @@ export default {
         this.teams = [
           {
             teamId: 'NB1557903870927',
-            name: 'NB1557903870928',
+            name: '努哇教育集團',
             isOwner: false
           },
           {
             teamId: 'NB1563766484392',
-            name: 'NB1563766484392',
+            name: 'STEAM 教室',
             isOwner: false
           },
           {
             teamId: 'NB1565172488294',
-            name: 'NB1565172488294',
+            name: '個人帳號',
             isOwner: false
           }
         ]
@@ -73,6 +73,11 @@ export default {
     // this.getTeamInfo()
   },
   methods: {
+
+    getTeamName(teamId) {
+      const t = this.teams.find(x => x.teamId === teamId)
+      return t.name
+    },
     createTeam() {
       this.$alert('create team')
     },
@@ -83,11 +88,11 @@ export default {
     },
     handleCommand(teamId) {
       const vm = this
-      this.value = teamId
       if (teamId === 'createTeam') {
         this.$alert('create team')
       } else {
         this.teamId = teamId
+        this.team.name = this.getTeamName(teamId)
       }
     }
   }
