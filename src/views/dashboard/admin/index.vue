@@ -6,6 +6,16 @@
     <el-button @click="udpateRole('Member')">Member</el-button>
     <el-button @click="udpateRole('User')">User</el-button>
     <el-button @click="udpateRole('Student')">Student</el-button>
+    <p />
+
+    <hr>
+    <br>
+
+    <h3> Teams </h3>
+    <el-button @click="udpateTeam('teams')">Teams</el-button>
+    <el-button @click="udpateTeam('empty')">Empty</el-button>
+    <p />
+    <hr>
   </div>
 </template>
 
@@ -64,6 +74,9 @@ export default {
     udpateRole(roleName) {
       // alert(roleName)
       this.$root.$emit('roleChanged', roleName.toLowerCase())
+    },
+    udpateTeam(teamsList) {
+      this.$root.$emit('teamChanged', teamsList.toLowerCase())
     }
   }
 }
