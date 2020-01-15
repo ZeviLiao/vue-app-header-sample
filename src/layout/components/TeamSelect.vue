@@ -1,28 +1,45 @@
 <template>
-  <div v-if="teams.length === 0">
-    <el-button key="createTeam" plain type="primary" @click="createTeam">{{ $t('team.apply') }}</el-button>
+  <div>
+    <div v-if="teams.length === 0" style="display:inline-block">
+      <el-button key="createTeam" plain type="primary" @click="createTeam">{{ $t('team.apply') }}</el-button>
+    </div>
+    <el-dropdown v-else trigger="click" @command="handleCommand">
+      <span class="el-dropdown-link">
+        <svg-icon icon-class="group" class="icon" />
+
+        <div style="display:inline-block;min-width:100px;text-align:right">{{ teamName }}</div>
+
+        <i class="el-icon-arrow-down el-icon--right" />
+      </span>
+
+      <el-dropdown-menu slot="dropdown">
+        <p style="color:#999;font-size:12px; padding: 0 15px;">{{ this.$t('navbar.team.select') }}</p>
+        <el-dropdown-item
+          v-for="item in teams"
+          :key="item.teamId"
+          :command="item.teamId"
+        >{{ item.name }}</el-dropdown-item>
+        <el-dropdown-item divided />
+        <el-dropdown-item key="createTeam" command="createTeam">{{ this.$t('navbar.team.apply') }}</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
+&nbsp;&nbsp;
+    <div style="display:inline-block;line-height:0">
+      <el-popover
+        placement="bottom"
+        title="Title"
+        width="200"
+        trigger="click"
+        content="this is content, this is content, this is content"
+      >
+        <div slot="reference">
+          <el-badge is-dot class="item">
+            <svg-icon icon-class="bell-solid" class="ic on" style="font-size:2em;" />
+          </el-badge>
+        </div>
+      </el-popover>
+    </div>
   </div>
-  <el-dropdown v-else trigger="click" @command="handleCommand">
-    <span class="el-dropdown-link">
-      <svg-icon icon-class="group" class="icon" />
-
-      <div style="display:inline-block;min-width:100px;text-align:right">
-        {{ teamName }}
-      </div>
-
-      <i class="el-icon-arrow-down el-icon--right" />
-    </span>
-    <el-dropdown-menu slot="dropdown">
-      <p style="color:#999;font-size:12px; padding: 0 15px;">{{ this.$t('navbar.team.select') }}</p>
-      <el-dropdown-item
-        v-for="item in teams"
-        :key="item.teamId"
-        :command="item.teamId"
-      >{{ item.name }}</el-dropdown-item>
-      <el-dropdown-item divided />
-      <el-dropdown-item key="createTeam" command="createTeam">{{ this.$t('navbar.team.apply') }}</el-dropdown-item>
-    </el-dropdown-menu>
-  </el-dropdown>
 </template>
 
 <script>
@@ -78,7 +95,6 @@ export default {
     // this.getTeamInfo()
   },
   methods: {
-
     getTeamName(teamId) {
       const t = this.teams.find(x => x.teamId === teamId)
       return t.name
@@ -113,4 +129,9 @@ export default {
   .el-dropdown-menu__item.el-dropdown-menu__item--divided {
   margin: 0 15px;
 }
+
+// .item {
+//   margin-top: 10px;
+//   margin-right: 40px;
+// }
 </style>
