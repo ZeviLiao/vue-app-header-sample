@@ -18,15 +18,15 @@
           </div>
         </div>
         <el-dropdown-menu slot="dropdown" style="width:150px">
-          <router-link to="/accountCenter">
+          <router-link to="/profile">
             <el-dropdown-item>
               {{ this.name }}
               <br>
-              <el-tag :class="stateRole || roles[0]">{{ $t('common.role.' + stateRole || roles[0]) }}</el-tag>
+              <el-tag :class="stateRole || roles[0]">{{ $t('common.role.' + (stateRole || roles[0])) }}</el-tag>
             </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided />
-          <router-link to="/accountCenter">
+          <router-link to="/profile">
             <el-dropdown-item>{{ $t('common.acc') }}</el-dropdown-item>
           </router-link>
           <router-link
@@ -135,11 +135,13 @@ export default {
         cancelButtonText: this.$t('common.cancel')
       })
         .then(_ => {
-          this.$store.dispatch('LogOut').then(() => {
-            location.reload() // In order to re-instantiate the vue-router object to avoid bugs
-          })
+          this.logout()
         })
         .catch(_ => {})
+    },
+    async logout() {
+      await this.$store.dispatch('user/logout')
+      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
   }
 }
