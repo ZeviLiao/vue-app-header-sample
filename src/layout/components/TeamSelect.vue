@@ -22,16 +22,12 @@
         <el-dropdown-item divided />
         <el-dropdown-item key="createTeam" command="createTeam">{{ this.$t('navbar.team.apply') }}</el-dropdown-item>
       </el-dropdown-menu>
-    </el-dropdown>
-&nbsp;&nbsp;
+    </el-dropdown>&nbsp;&nbsp;
     <div style="display:inline-block;line-height:0">
-      <el-popover
-        placement="bottom"
-        title="Title"
-        width="200"
-        trigger="click"
-        content="this is content, this is content, this is content"
-      >
+      <el-popover placement="bottom" title="Title" width="200" trigger="click">
+        <div>
+          <img :src="('/static/images/empty-msg-box.png')" width="78">
+        </div>
         <div slot="reference">
           <el-badge is-dot class="item">
             <svg-icon icon-class="bell-solid" class="ic on" style="font-size:2em;" />
