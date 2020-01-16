@@ -20,6 +20,12 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 
+const theme = Cookies.get('ThemeType') || 'light'
+
+if (theme === 'dark') {
+  require('element-theme-dark')
+}
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

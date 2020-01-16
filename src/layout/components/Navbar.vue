@@ -206,7 +206,7 @@ export default {
       padding: 0 8px;
       height: 100%;
       font-size: 14px;
-      color: #5a5e66;
+      // color: #5a5e66;
       vertical-align: text-bottom;
 
       &.hover-effect {

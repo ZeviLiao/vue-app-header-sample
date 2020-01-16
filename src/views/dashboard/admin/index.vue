@@ -11,16 +11,25 @@
     <hr>
     <br>
 
-    <h3> Teams </h3>
+    <h3>Teams</h3>
     <el-button @click="udpateTeam('teams')">Teams</el-button>
     <el-button @click="udpateTeam('empty')">Empty</el-button>
     <p />
     <hr>
     <br>
 
-    <h3> Message Alert </h3>
+    <h3>Message Alert</h3>
     <el-button @click="udpateMsgBox('msg')">Messages</el-button>
     <el-button @click="udpateMsgBox('empty')">Empty</el-button>
+    <p />
+    <hr>
+    <br>
+
+    <h3>Theme</h3>
+    <el-select v-model="value" placeholder="Select" @change="handleSelected">
+      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+    </el-select>
+    {{ value }}
     <p />
   </div>
 </template>
@@ -35,6 +44,7 @@ import BarChart from './components/BarChart'
 import TransactionTable from './components/TransactionTable'
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
+import Cookies from 'js-cookie'
 
 const lineChartData = {
   newVisitis: {
@@ -70,10 +80,29 @@ export default {
   },
   data() {
     return {
-      lineChartData: lineChartData.newVisitis
+      lineChartData: lineChartData.newVisitis,
+      options: [
+        {
+          value: 'light',
+          label: 'Light'
+        },
+        {
+          value: 'dark',
+          label: 'Dark'
+        }
+      ],
+      value: Cookies.get('ThemeType') || 'light'
     }
   },
+  careted() {
+    Cookies.set('ThemeType', this.value)
+  },
   methods: {
+    handleSelected(val) {
+      Cookies.set('ThemeType', val)
+      this.value = val
+      location.reload()
+    },
     handleSetLineChartData(type) {
       this.lineChartData = lineChartData[type]
     },
@@ -94,7 +123,7 @@ export default {
 <style lang="scss" scoped>
 .dashboard-editor-container {
   padding: 32px;
-  background-color: rgb(240, 242, 245);
+  // background-color: rgb(240, 242, 245);
   position: relative;
 
   .github-corner {
