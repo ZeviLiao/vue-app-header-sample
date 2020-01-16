@@ -10,6 +10,7 @@
     <!-- <breadcrumb class="breadcrumb-container"/> -->
     <div class="right-menu">
       <team-select class="right-menu-item" />
+      <message-alert class="right-menu-item" />
       <lang-select class="right-menu-item hover-effect" />
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
@@ -63,6 +64,7 @@ import { mapGetters } from 'vuex'
 import Hamburger from '@/components/Hamburger'
 import LangSelect from '@/components/LangSelect'
 import TeamSelect from './TeamSelect'
+import MessageAlert from './MessageAlert'
 import store from '@/store'
 import ResizeMixin from '../mixin/ResizeHandler'
 // import { version } from '@/../package.json'
@@ -72,7 +74,8 @@ export default {
     // Breadcrumb,
     Hamburger,
     LangSelect,
-    TeamSelect
+    TeamSelect,
+    MessageAlert
   },
   mixins: [ResizeMixin],
   data() {

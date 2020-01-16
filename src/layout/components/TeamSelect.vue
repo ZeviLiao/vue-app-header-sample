@@ -23,23 +23,6 @@
         <el-dropdown-item key="createTeam" command="createTeam">{{ this.$t('navbar.team.apply') }}</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>&nbsp;&nbsp;
-    <div style="display:inline-block;line-height:0">
-      <el-popover placement="bottom" width="200" trigger="click">
-        <div style="text-align:center">
-          <div style="padding:1em;">
-            <img :src="('/static/images/empty-msg-box.png')" width="78">
-            <p>尚未收到任何訊息</p>
-          </div>
-          <hr>
-          <p>前往訊息夾</p>
-        </div>
-        <div slot="reference">
-          <el-badge is-dot class="item">
-            <svg-icon icon-class="bell-solid" class="ic on" style="font-size:2em;" />
-          </el-badge>
-        </div>
-      </el-popover>
-    </div>
   </div>
 </template>
 

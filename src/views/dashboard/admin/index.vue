@@ -16,6 +16,12 @@
     <el-button @click="udpateTeam('empty')">Empty</el-button>
     <p />
     <hr>
+    <br>
+
+    <h3> Message Alert </h3>
+    <el-button @click="udpateMsgBox('msg')">Messages</el-button>
+    <el-button @click="udpateMsgBox('empty')">Empty</el-button>
+    <p />
   </div>
 </template>
 
@@ -77,6 +83,9 @@ export default {
     },
     udpateTeam(teamsList) {
       this.$root.$emit('teamChanged', teamsList.toLowerCase())
+    },
+    udpateMsgBox(msgs) {
+      this.$root.$emit('msgBoxChanged', msgs.toLowerCase())
     }
   }
 }
