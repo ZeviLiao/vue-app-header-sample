@@ -16,12 +16,12 @@
           <div v-for="(m,i) in msgs" :key="i">
             <div class="meg-title">{{ m.title }}</div>
             <p class="etc msg-desc">{{ m.desc }}</p>
-            <div class="msg-desc">{{ m.dateTime }}</div>
+            <div class="msg-desc">{{ moment(m.dateTime, "YYYYMMDD").fromNow() }}</div>
             <hr>
           </div>
         </div>
         <el-badge slot="reference">
-          <el-badge is-dot class="item">
+          <el-badge :is-dot="(msgs.length > 0)" class="item">
             <svg-icon icon-class="bell-solid" class="ic on" style="font-size:2em;" />
           </el-badge>
         </el-badge>
@@ -34,12 +34,14 @@
 // import { mapGetters } from 'vuex'
 // import { getTeamById } from '@/api/team'
 // import { getTeamFromUAMS } from '@/utils/uamsInfo'
+import moment from 'moment'
 
 export default {
   name: 'TeamSelect',
   data() {
     return {
-      msgs: []
+      msgs: [],
+      moment
     }
   },
   computed: {
@@ -76,14 +78,11 @@ export default {
       }
     })
   },
-  methods: {
-
-  }
+  methods: {}
 }
 </script>
 
 <style lang="scss" scoped>
-
 :root {
   --baack: #333;
 }

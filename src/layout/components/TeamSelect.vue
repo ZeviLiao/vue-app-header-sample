@@ -22,7 +22,7 @@
         <el-dropdown-item divided />
         <el-dropdown-item key="createTeam" command="createTeam">{{ this.$t('navbar.team.apply') }}</el-dropdown-item>
       </el-dropdown-menu>
-    </el-dropdown>&nbsp;&nbsp;
+    </el-dropdown>
   </div>
 </template>
 
