@@ -159,6 +159,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .dark-theme {
   @import "src/styles/rms-dark.scss";
 }
@@ -251,7 +252,7 @@ export default {
           pointer-events: none;
           &:hover {
             transition: background 0.2s ease-in;
-            background: rgba(0, 0, 0, 0.1);
+            // background: rgba(0, 0, 0, 0.1);
           }
           transition: background 0.2s ease-out;
           .user-avatar {

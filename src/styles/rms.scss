@@ -19,6 +19,9 @@ $admin: #333333;
 $member-av: #008eb2;
 $member-tag: #bbbbc1;
 
+$shadow-color: #e8ebf3;
+
+
 .el-tag.owner {
   background-color: rgba(0, 181, 226, 0.1);
   color: $owner;
@@ -47,4 +50,17 @@ $member-tag: #bbbbc1;
 .user-avatar.user,
 .user-avatar.student {
   background: $member-tag;
+}
+
+
+.right-menu {
+  .avatar-container {
+    .avatar-wrapper {
+      .user-avatar-outer {
+        &:hover {
+          background: $shadow-color;
+        }
+      }
+    }
+  }
 }
