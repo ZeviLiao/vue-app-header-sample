@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" :class="!themeType?'light-theme':'dark-theme'">
     <hamburger
       v-if="device === 'mobile'"
       :toggle-click="toggleSideBar"
@@ -9,8 +9,7 @@
     <!-- <div class="breadcrumb-container">Version: {{version}}</div> -->
     <!-- <breadcrumb class="breadcrumb-container"/> -->
     <div class="right-menu">
-      <team-select class="right-menu-item" />
-      &nbsp;&nbsp;
+      <team-select class="right-menu-item" />&nbsp;&nbsp;
       <message-alert class="right-menu-item" />
       <lang-select class="right-menu-item hover-effect" />
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
@@ -24,7 +23,9 @@
             <el-dropdown-item>
               {{ name }}
               <br>
-              <el-tag :class="stateRole || roles[0]">{{ $t('common.role.' + (stateRole || roles[0])) }}</el-tag>
+              <el-tag
+                :class="stateRole || roles[0]"
+              >{{ $t('common.role.' + (stateRole || roles[0])) }}</el-tag>
             </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided />
@@ -69,6 +70,7 @@ import MessageAlert from './MessageAlert'
 import store from '@/store'
 import ResizeMixin from '../mixin/ResizeHandler'
 // import { version } from '@/../package.json'
+import Cookies from 'js-cookie'
 
 export default {
   components: {
@@ -95,6 +97,10 @@ export default {
     })
   },
   computed: {
+    themeType() {
+      const theme = Cookies.get('ThemeType') || 'light'
+      return theme === 'dark'
+    },
     ...mapGetters(['sidebar', 'name', 'avatar', 'device', 'roles']),
     accountPage() {
       return this.$route.path === '/accountCenter'
@@ -152,8 +158,17 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+.dark-theme {
+  @import "src/styles/rms-dark.scss";
+}
+
+.light-theme {
+  @import "src/styles/rms.scss";
+}
+</style>
+
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import "src/styles/rms.scss";
 // .navbar .right-menu .avatar-container .avatar-wrapper {
 //     margin-top: 0 !important;
 // }
