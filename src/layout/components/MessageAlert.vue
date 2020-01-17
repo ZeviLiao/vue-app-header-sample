@@ -22,7 +22,7 @@
         </div>
         <el-badge slot="reference">
           <el-badge :is-dot="(msgs.length > 0)" class="item">
-            <svg-icon icon-class="bell-solid" class="ic on" style="font-size:2em;" />
+            <svg-icon icon-class="bell-solid" class="ic on" style="font-size:1.5em;" />
           </el-badge>
         </el-badge>
       </el-popover>
