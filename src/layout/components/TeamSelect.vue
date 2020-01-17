@@ -8,7 +8,6 @@
         <svg-icon icon-class="group" class="icon" />
 
         <div style="display:inline-block;min-width:100px;text-align:right">{{ teamName }}</div>
-
         <i class="el-icon-arrow-down el-icon--right" />
       </span>
 
@@ -18,6 +17,7 @@
           v-for="item in teams"
           :key="item.teamId"
           :command="item.teamId"
+          :class="{active:teamId===item.teamId}"
         >{{ item.name }}</el-dropdown-item>
         <el-dropdown-item divided />
         <el-dropdown-item key="createTeam" command="createTeam">{{ this.$t('navbar.team.apply') }}</el-dropdown-item>
@@ -118,4 +118,7 @@ export default {
 //   margin-top: 10px;
 //   margin-right: 40px;
 // }
+.active {
+  color: #00b5e2;
+}
 </style>

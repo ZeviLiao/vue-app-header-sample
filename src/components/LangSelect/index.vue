@@ -3,21 +3,15 @@
     <div>
       <!-- <svg-icon class-name="international-icon" icon-class="language" /> -->
       <svg-icon icon-class="global" class="icon" />
-      {{ displayLang }}<i class="el-icon-arrow-down el-icon--right" />
+
+      <div style="display:inline-block;min-width:60px;text-align:right">{{ displayLang }}</div>
+      <i class="el-icon-arrow-down el-icon--right" />
     </div>
     <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item :disabled="language==='zh'" command="zh">
-        中文
-      </el-dropdown-item>
-      <el-dropdown-item :disabled="language==='en'" command="en">
-        English
-      </el-dropdown-item>
-      <el-dropdown-item :disabled="language==='es'" command="es">
-        Español
-      </el-dropdown-item>
-      <el-dropdown-item :disabled="language==='ja'" command="ja">
-        日本語
-      </el-dropdown-item>
+      <el-dropdown-item :class="{active:language==='zh'}" command="zh">中文</el-dropdown-item>
+      <el-dropdown-item :class="{active:language==='en'}" command="en">English</el-dropdown-item>
+      <el-dropdown-item :class="{active:language==='es'}" command="es">Español</el-dropdown-item>
+      <el-dropdown-item :class="{active:language==='ja'}" command="ja">日本語</el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
 </template>
@@ -56,3 +50,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.active {
+  color: #00b5e2;
+}
+</style>

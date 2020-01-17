@@ -27,7 +27,6 @@
         <el-button
           icon="comment-dots-solid"
           type="text"
-          style="color:#333"
           @click="feedback('feedback')"
         >
           <svg-icon icon-class="comment-dots-solid" />

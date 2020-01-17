@@ -159,7 +159,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .dark-theme {
   @import "src/styles/rms-dark.scss";
 }

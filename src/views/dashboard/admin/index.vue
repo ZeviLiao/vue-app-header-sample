@@ -25,11 +25,11 @@
     <hr>
     <br>
 
-    <h3>Theme</h3>
+    <h3>Theme - {{ value }}</h3>
     <el-select v-model="value" placeholder="Select" @change="handleSelected">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
     </el-select>
-    {{ value }}
+
     <p />
   </div>
 </template>
