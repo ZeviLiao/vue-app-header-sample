@@ -24,6 +24,7 @@ const theme = Cookies.get('ThemeType') || 'light'
 
 if (theme === 'dark') {
   require('element-theme-dark')
+  require('./styles/base-dark.scss')
 }
 
 /**
