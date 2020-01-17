@@ -88,14 +88,7 @@ export default {
       stateRole: null
     }
   },
-  created() {
-    this.$root.$on('updateUserInfo', () => {
-      store.dispatch('GetUserInfo')
-    })
-    this.$root.$on('roleChanged', roleName => {
-      this.stateRole = roleName
-    })
-  },
+
   computed: {
     themeType() {
       const theme = Cookies.get('ThemeType') || 'light'
@@ -130,6 +123,18 @@ export default {
       }
       return showName
     }
+  },
+  mounted() {
+    const body = document.querySelector('body')
+    body.classList.add(!this.themeType ? 'light-theme' : 'dark-theme')
+  },
+  created() {
+    this.$root.$on('updateUserInfo', () => {
+      store.dispatch('GetUserInfo')
+    })
+    this.$root.$on('roleChanged', roleName => {
+      this.stateRole = roleName
+    })
   },
   methods: {
     toggleSideBar() {
