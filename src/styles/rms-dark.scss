@@ -27,9 +27,9 @@ $shadow-color: #5f5f61;
   border: 1px solid rgba(0, 181, 226, 0.2);
 }
 .el-tag.admin {
-  background-color: rgba(51, 51, 51, 0.1);
-  color: $admin;
-  border: 1px solid rgba(51, 51, 51, 0.2);
+  background-color: #333;
+  color: white;
+  border: 1px solid white;
 }
 .el-tag.member,
 .el-tag.user,
@@ -43,7 +43,10 @@ $shadow-color: #5f5f61;
   background: $owner;
 }
 .user-avatar.admin {
-  background: $admin;
+  background: #555;
+}
+.user-avatar.admin:hover {
+  background: #333;
 }
 .user-avatar.member,
 .user-avatar.user,
